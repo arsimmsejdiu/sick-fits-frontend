@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Products from "../components/Products";
 
 export default function Home() {
   return (
@@ -6,7 +7,7 @@ export default function Home() {
       <Head>
         <title>Products Page - Sick Fits</title>
       </Head>
-      <p>Producs Page</p>
+      <Products />
     </div>
   );
 }
