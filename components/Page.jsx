@@ -18,10 +18,10 @@ const GlobalStyles = createGlobalStyle`
     --lightGrey: #e1e1e1;
     --lightGray: var(--lightGrey);
     --offWhite: #EDEDED;
-    --maxWidth: 1000px;
+    --maxWidth: 1400px;
     --bs: 0 12px 24px 0 rgba(0, 0, 0, 0.09); //Box Shadow
     box-sizing: border-box;
-
+    font-size: 8px;
   }
 
   *, *:before, *:after {
