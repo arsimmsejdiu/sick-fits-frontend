@@ -1,4 +1,5 @@
 import Head from "next/head";
+import CreateProduct from "../components/CreateProduct";
 
 export default function Sell() {
   return (
@@ -6,7 +7,7 @@ export default function Sell() {
       <Head>
         <title>Sell Page - Sick Fits</title>
       </Head>
-      <p>Sell Page</p>
+      <CreateProduct />
     </div>
   );
 }
