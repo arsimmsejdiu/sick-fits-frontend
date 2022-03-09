@@ -42,7 +42,8 @@ export default function CreateProduct() {
           onChange={handleChange}
         />
       </label>
-      <button onClick={clearForm}>Clear Form</button>
+      <button type="button" onClick={clearForm}>Clear Form</button>
+      <button type="button" onClick={resetForms}>Reset Form</button>
     </form>
   );
 }
