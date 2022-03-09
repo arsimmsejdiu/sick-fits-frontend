@@ -1,5 +1,33 @@
+import gql from "graphql-tag";
 import useForm from "../lib/useForm";
 import Form from "./styles/Form";
+import { useMutation } from "@apollo/client";
+import DisplayError from "./ErrorMessage";
+
+const CREATE_PRODUCT_MUTATION = gql`
+  mutation CREATE_PRODUCT_MUTATION(
+    # Which variables are getting passed in? And What types are they
+    $name: String!
+    $description: String!
+    $price: Int!
+    $image: Upload
+  ) {
+    createProduct(
+      data: {
+        name: $name
+        description: $description
+        price: $price
+        status: "AVAILABLE"
+        photo: { create: { image: $image, altText: $name } }
+      }
+    ) {
+      id
+      price
+      description
+      name
+    }
+  }
+`;
 
 export default function CreateProduct() {
   const { inputs, handleChange, resetForms, clearForm } = useForm({
@@ -9,15 +37,34 @@ export default function CreateProduct() {
     description: "These are the best shoes you will ever own",
   });
 
+  const [createProduct, { loading, error, data }] = useMutation(
+    CREATE_PRODUCT_MUTATION,
+    {
+      variables: inputs,
+    }
+  );
+
   return (
-    <Form onSubmit={(e) => {
-      e.preventDefault();
-      console.log(inputs);
-    }}>
-      <fieldset>
+    <Form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        console.log(inputs);
+        // submit the input fields to the backend
+        await createProduct();
+        clearForm();
+      }}
+    >
+      <DisplayError error={error} />
+      <fieldset aria-busy={loading} disabled={loading}>
         <label htmlFor="image">
           Image
-          <input required type="file" id="image" name="image" onChange={handleChange} />
+          <input
+            required
+            type="file"
+            id="image"
+            name="image"
+            onChange={handleChange}
+          />
         </label>
         <label htmlFor="name">
           Name
